@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audio_fingerprinting"
+version = "0.1.0"
+description = "Audio Fingerprinting and Recognition"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Ankit Josh", email = "ankitjosh78@gmail.com"}
+]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "librosa",
+    "numpy",
+    "scipy",
+    "yt-dlp",
+    "sounddevice",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["audio_fingerprinting*"]
